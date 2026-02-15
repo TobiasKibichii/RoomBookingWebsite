@@ -283,6 +283,31 @@ urlpatterns = [
     <li>🛡️ Implement rate limiting and advanced security measures for production.</li>
 </ul>
 
+
+
+<p><strong>🖼️ Screenshots</strong></p>
+
+   <p>Home Page </p>
+  <img src="screenshots/Home.png" alt="Home Page" title ='Home Page' style="width:800px; " />
+   <p>Book A Room Page </p>
+  <img src="screenshots/BookRoom.png" alt="BookRoom" title ='BookRoom' style="width:800px; " />
+   <p>All Rooms Page</p>
+  <img src="screenshots/AllRooms.png" alt="All Rooms" title ='All Rooms' style="width:800px; " />
+   <p>My Bookings Page</p>
+  <img src="screenshots/MyBookings.png" alt="My Bookings" title ='My Bookings' style="width:800px; " />
+   <p>Register/Login Page</p>
+  <img src="screenshots/RegisterLogin.png" alt="Register/Login" title ='Register/Login' style="width:800px; " />
+   <p>Url Output Example(Occupied_dates_detail)</p>
+  <img src="screenshots/UrlExample(Occupied_dates_detail).png" alt="UrlExample(Occupied_dates_detail)" title ='UrlExample(Occupied_dates_detail)' style="width:800px; " />
+   <p>Url Output Example(Occupied_dates_list)</p>
+  <img src="screenshots/UrlExample(Occupied_dates_list).png" alt="UrlExample(Occupied_dates_list)" title ='UrlExample(Occupied_dates_list)' style="width:800px; " />
+   <p>Url Output Example(User_detail)</p>
+  <img src="screenshots/UrlExample(User_detail).png" alt="UrlExample(User_detail)" title ='UrlExample(User_detail)' style="width:800px; " />
+   <p>Url Output Example(User_list)</p>
+  <img src="screenshots/UrlExample(User_list).png" alt="UrlExample(User_list)" title ='UrlExample(User_list)' style="width:800px; " />
+   
+
+
 <p><strong>Author:</strong> Tobias Kibichii</p>
 
 

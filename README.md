@@ -10,7 +10,7 @@
     manage their bookings, and interact with the system through secure API endpoints. 🛏️
 </p>
 
-<h2>📌 Project Overview</h2>
+<h3>1. 📌 Project Overview</h3>
 <p>
     This API is designed to handle room bookings in a structured, scalable manner.
     It includes models for <strong>Rooms</strong>, <strong>Users</strong>, <strong>Occupied Dates</strong>,
@@ -18,7 +18,7 @@
     and role-based access control to separate regular users and administrators. 🧑‍💻
 </p>
 
-<h2>💻 System Requirements</h2>
+<h3>2. 💻 System Requirements</h3>
 <ul>
     <li>🐍 Python 3.10+</li>
     <li>🕸️ Django 6.0+</li>
@@ -27,7 +27,7 @@
     <li>🔧 Optional: Postman or any API testing client</li>
 </ul>
 
-<h2>⚙️ Installation & Setup</h2>
+<h3>3. ⚙️ Installation & Setup</h3>
 <ol>
     <li>Clone the repository:  
     <pre><code>git clone https://github.com/yourusername/room-booking-api.git</code></pre></li>
@@ -53,7 +53,7 @@ venv\Scripts\activate     # Windows</code></pre></li>
     <pre><code>python manage.py runserver</code></pre></li>
 </ol>
 
-<h2>📂 Models</h2>
+<h3>4. 📂 Models</h3>
 <p>
     The application contains the following main models:
 </p>
@@ -64,7 +64,7 @@ venv\Scripts\activate     # Windows</code></pre></li>
     <li>👤 <strong>User:</strong> Custom user model based on email authentication with a full_name field.</li>
 </ul>
 
-<h2>🛠️ Serializers</h2>
+<h3>5. 🛠️ Serializers</h3>
 <p>
     Serializers convert model instances into JSON data for API responses and validate incoming data:
 </p>
@@ -75,7 +75,7 @@ venv\Scripts\activate     # Windows</code></pre></li>
     <li>👤 <strong>UserSerializer:</strong> Handles user creation, including password hashing and validation.</li>
 </ul>
 
-<h2>📝 Views & API Endpoints</h2>
+<h3>6. 📝 Views & API Endpoints</h3>
 <p>
     The API uses Django REST Framework views to manage endpoints:
 </p>
@@ -86,7 +86,7 @@ venv\Scripts\activate     # Windows</code></pre></li>
     <li>🔑 <strong>Register & Login:</strong> Handle user registration and token-based authentication.</li>
 </ul>
 
-<h2>🔐 Authentication & Permissions</h2>
+<h3>7. 🔐 Authentication & Permissions</h3>
 <ul>
     <li>✉️ Custom <code>EmailBackend</code> allows login via email instead of username.</li>
     <li>🔑 Token-based authentication for API access.</li>
@@ -98,7 +98,7 @@ venv\Scripts\activate     # Windows</code></pre></li>
     </li>
 </ul>
 
-<h2>🌐 URL Routing</h2>
+<h3>8. 🌐 URL Routing</h3>
 <p>
     URL paths follow REST conventions:
 </p>
@@ -113,7 +113,146 @@ venv\Scripts\activate     # Windows</code></pre></li>
     <li><code>/register/</code> - Create new user and token</li>
 </ul>
 
-<h2>🧪 Testing & Error Handling</h2>
+
+
+<h3>9. Minimal Working Example – Single Room Model 🏨</h3>
+
+<p>This example demonstrates:</p>
+<ul>
+  <li>Creating and listing rooms.</li>
+  <li>Viewing details of a specific room.</li>
+  <li>How the Room model fields are represented in the API.</li>
+  <li>Basic URL navigation.</li>
+</ul>
+
+<h3>models.py</h3>
+<pre><code class="language-python">
+from django.db import models
+
+# Room model represents a hotel or rental room
+class Room(models.Model):
+    ROOM_TYPES = [
+        ('suite', 'Suite'),
+        ('standard', 'Standard Room'),
+        ('deluxe', 'Deluxe Room')
+    ]
+    
+    # Fields for the room
+    name = models.CharField(max_length=100, blank=True, default='')   # Room name
+    type = models.CharField(max_length=100, choices=ROOM_TYPES)       # Type of room
+    pricePerNight = models.IntegerField(default=150)                  # Price per night in default currency
+    maxOccupancy = models.IntegerField(default=1)                     # Maximum number of guests
+    description = models.TextField(default='')                        # Room description
+    
+    def __str__(self):
+        return f"{self.name} ({self.type})"
+</code></pre>
+
+<h3>serializers.py</h3>
+<pre><code class="language-python">
+from rest_framework import serializers
+from .models import Room
+
+# Serializer converts Room model to JSON and vice versa
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        # Include all main fields
+        fields = ['id', 'name', 'type', 'pricePerNight', 'maxOccupancy', 'description']
+</code></pre>
+
+<h3>views.py</h3>
+<pre><code class="language-python">
+from rest_framework import generics
+from .models import Room
+from .serializers import RoomSerializer
+
+# List all rooms or create a new room
+class RoomList(generics.ListCreateAPIView):
+    queryset = Room.objects.all()         # Get all Room objects
+    serializer_class = RoomSerializer     # Use the RoomSerializer
+
+# Retrieve, update, or delete a specific room
+class RoomDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Room.objects.all()         # Get all Room objects
+    serializer_class = RoomSerializer     # Use the RoomSerializer
+</code></pre>
+
+<h3>urls.py</h3>
+<pre><code class="language-python">
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('rooms/', views.RoomList.as_view(), name='room-list'),          # List or create rooms
+    path('rooms/&lt;int:pk&gt;/', views.RoomDetail.as_view(), name='room-detail')  # View, update, or delete a specific room
+]
+</code></pre>
+
+<h3>Example Outputs</h3>
+
+<h4>1. GET <code>/rooms/</code> – List All Rooms</h4>
+<pre><code class="language-json">
+[
+  {
+    "id": 1,
+    "name": "Ocean View Suite",
+    "type": "suite",
+    "pricePerNight": 200,
+    "maxOccupancy": 2,
+    "description": "A beautiful suite with an ocean view and king-size bed."
+  },
+  {
+    "id": 2,
+    "name": "Standard Room",
+    "type": "standard",
+    "pricePerNight": 100,
+    "maxOccupancy": 1,
+    "description": "A cozy room for solo travelers."
+  }
+]
+</code></pre>
+
+<h4>2. GET <code>/rooms/1/</code> – View Room Details</h4>
+<pre><code class="language-json">
+{
+  "id": 1,
+  "name": "Ocean View Suite",
+  "type": "suite",
+  "pricePerNight": 200,
+  "maxOccupancy": 2,
+  "description": "A beautiful suite with an ocean view and king-size bed."
+}
+</code></pre>
+
+<h4>3. POST <code>/rooms/</code> – Create a New Room</h4>
+<p><strong>Request Body:</strong></p>
+<pre><code class="language-json">
+{
+  "name": "Deluxe Room",
+  "type": "deluxe",
+  "pricePerNight": 180,
+  "maxOccupancy": 2,
+  "description": "Spacious room with modern amenities."
+}
+</code></pre>
+
+<p><strong>Response:</strong></p>
+<pre><code class="language-json">
+{
+  "id": 3,
+  "name": "Deluxe Room",
+  "type": "deluxe",
+  "pricePerNight": 180,
+  "maxOccupancy": 2,
+  "description": "Spacious room with modern amenities."
+}
+</code></pre>
+
+
+
+
+<h3>10. 🧪 Testing & Error Handling</h3>
 <ul>
     <li>⚠️ API endpoints handle invalid requests gracefully using DRF exceptions.</li>
     <li>🔒 Permissions and ownership checks prevent unauthorized access.</li>
@@ -121,7 +260,7 @@ venv\Scripts\activate     # Windows</code></pre></li>
     <li>📝 Logs and responses provide clear error messages to clients.</li>
 </ul>
 
-<h2>💡 Reflections & Learning</h2>
+<h3>11. 💡 Reflections & Learning</h3>
 <p>
     Building this API highlighted key Django and REST concepts:
 </p>
@@ -132,7 +271,7 @@ venv\Scripts\activate     # Windows</code></pre></li>
     <li>🔑 Authentication and token-based security are essential for protecting user data.</li>
 </ul>
 
-<h2>🚀 Future Enhancements</h2>
+<h3>12. 🚀 Future Enhancements</h3>
 <ul>
     <li>🔍 Add search and filtering for rooms by type, price, or availability.</li>
     <li>📆 Integrate calendar views for bookings.</li>
@@ -141,7 +280,7 @@ venv\Scripts\activate     # Windows</code></pre></li>
 </ul>
 
 <p><strong>Author:</strong> Tobias Kibichii</p>
-<p><strong>License:</strong> MIT</p>
+
 
 </body>
 </html>

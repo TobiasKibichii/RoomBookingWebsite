@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-
+    <h3>
+⚠️ **Notice:** This repository primarily focuses on the Django backend API for the Room Booking system.  
+While a React frontend exists in the project, it is included for demonstration purposes and is not the main focus of this repository.
+    </h3>
+    
 <h2>🏨 Room Booking API</h2>
 
 <p>

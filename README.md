@@ -5,6 +5,10 @@
 ⚠️ **Notice:** This repository primarily focuses on the Django backend API for the Room Booking system.  
 While a React frontend exists in the project, it is included for demonstration purposes and is not the main focus of this repository.
     </h3>
+
+<h3>
+<a href="https://docs.google.com/document/d/1gr9pQSLCrEecp1FakGXY1fuMfVXCMaPGPETjS8B-DDQ/edit?usp=sharing">Documentaion Link</a>
+</h3>
     
 <h2>🏨 Room Booking API</h2>
 
@@ -283,6 +287,9 @@ urlpatterns = [
     <li>🛡️ Implement rate limiting and advanced security measures for production.</li>
 </ul>
 
+<h3>13. AI Prompt Journal</h3>
+<h3><p>In <a href="https://docs.google.com/document/d/1gr9pQSLCrEecp1FakGXY1fuMfVXCMaPGPETjS8B-DDQ/edit?usp=sharing">Documentation</a></p>
+</h3>
 
 
 <p><strong>🖼️ Screenshots</strong></p>

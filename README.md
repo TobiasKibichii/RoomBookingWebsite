@@ -1,18 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>🏨 Room Booking API - README</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; background: #f9f9f9; color: #333; }
-        h2, h3, h4 { color: #1f4e79; }
-        code { background: #eee; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-        pre { background: #eee; padding: 10px; border-radius: 5px; overflow-x: auto; }
-        a { color: #1f4e79; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        ul { margin-top: 0; }
-    </style>
-</head>
 <body>
 
 <h2>🏨 Room Booking API</h2>

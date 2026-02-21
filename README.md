@@ -37,28 +37,35 @@ While a React frontend exists in the project, it is included for demonstration p
 
 <h3>3. ⚙️ Installation & Setup</h3>
 <ol>
-    <li>Clone the repository:  
-    <pre><code>git clone https://github.com/yourusername/room-booking-api.git</code></pre></li>
-
-    <li>Navigate to the project folder:  
-    <pre><code>cd room-booking-api</code></pre></li>
-
-    <li>Create and activate a virtual environment:  
-    <pre><code>python -m venv venv
+    Clone the repository:  
+    <pre><code>git clone https://github.com/yourusername/RoomBookingWebApp.git</code></pre>
+</ol>
+<ol>
+    Navigate to the project folder:  
+    <pre><code>cd RoomBookingWebApp</code></pre>
+</ol>
+<ol>
+    Create and activate a virtual environment:  
+    <pre><code>
+python -m venv venv       # creating virtual environment
 source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows</code></pre></li>
-
-    <li>Install dependencies:  
-    <pre><code>pip install -r requirements.txt</code></pre></li>
-
-    <li>Apply database migrations:  
-    <pre><code>python manage.py migrate</code></pre></li>
-
-    <li>Create a superuser for admin access:  
-    <pre><code>python manage.py createsuperuser</code></pre></li>
-
-    <li>Run the development server:  
-    <pre><code>python manage.py runserver</code></pre></li>
+venv\Scripts\activate     # Windows</code></pre>
+</ol>
+<ol>
+    Install dependencies:  
+    <pre><code>pip install -r requirements.txt</code></pre>
+</ol>
+<ol>
+    Apply database migrations:  
+    <pre><code>python manage.py migrate</code></pre>
+</ol>
+<ol>
+    Create a superuser for admin access:  
+    <pre><code>python manage.py createsuperuser</code></pre>
+</ol>
+<ol>
+    Run the development server:  
+    <pre><code>python manage.py runserver</code></pre>
 </ol>
 
 <h3>4. 📂 Models</h3>
@@ -138,22 +145,24 @@ venv\Scripts\activate     # Windows</code></pre></li>
 from django.db import models
 
 # Room model represents a hotel or rental room
+
 class Room(models.Model):
-    ROOM_TYPES = [
-        ('suite', 'Suite'),
-        ('standard', 'Standard Room'),
-        ('deluxe', 'Deluxe Room')
-    ]
-    
-    # Fields for the room
-    name = models.CharField(max_length=100, blank=True, default='')   # Room name
-    type = models.CharField(max_length=100, choices=ROOM_TYPES)       # Type of room
-    pricePerNight = models.IntegerField(default=150)                  # Price per night in default currency
-    maxOccupancy = models.IntegerField(default=1)                     # Maximum number of guests
-    description = models.TextField(default='')                        # Room description
-    
-    def __str__(self):
-        return f"{self.name} ({self.type})"
+
+            ROOM_TYPES = [
+                ('suite', 'Suite'),
+                ('standard', 'Standard Room'),
+                ('deluxe', 'Deluxe Room')
+            ]
+            
+            # Fields for the room
+            name = models.CharField(max_length=100, blank=True, default='')   # Room name
+            type = models.CharField(max_length=100, choices=ROOM_TYPES)       # Type of room
+            pricePerNight = models.IntegerField(default=150)                  # Price per night in default currency
+            maxOccupancy = models.IntegerField(default=1)                     # Maximum number of guests
+            description = models.TextField(default='')                        # Room description
+            
+            def __str__(self):
+                return f"{self.name} ({self.type})"
 </code></pre>
 
 <h3>serializers.py</h3>
@@ -163,6 +172,7 @@ from .models import Room
 
 # Serializer converts Room model to JSON and vice versa
 class RoomSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Room
         # Include all main fields
@@ -177,11 +187,13 @@ from .serializers import RoomSerializer
 
 # List all rooms or create a new room
 class RoomList(generics.ListCreateAPIView):
+
     queryset = Room.objects.all()         # Get all Room objects
     serializer_class = RoomSerializer     # Use the RoomSerializer
 
 # Retrieve, update, or delete a specific room
 class RoomDetail(generics.RetrieveUpdateDestroyAPIView):
+
     queryset = Room.objects.all()         # Get all Room objects
     serializer_class = RoomSerializer     # Use the RoomSerializer
 </code></pre>
@@ -191,6 +203,7 @@ class RoomDetail(generics.RetrieveUpdateDestroyAPIView):
 from django.urls import path
 from . import views
 
+<br>
 urlpatterns = [
     path('rooms/', views.RoomList.as_view(), name='room-list'),          # List or create rooms
     path('rooms/&lt;int:pk&gt;/', views.RoomDetail.as_view(), name='room-detail')  # View, update, or delete a specific room
